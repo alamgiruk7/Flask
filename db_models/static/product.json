@@ -1,0 +1,289 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Product Swagger API",
+        "description": "Multi-function APIs for an E-commerce Store.",
+        "version": "1.0.0",
+        "license": {
+            "name": "MIT",
+            "url": "https://www.abc.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:5000",
+            "description": "Development Server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "CustomerSchema": {
+                "description": "Model containing customer schema",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "email"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    }
+                }
+            },
+            "OrderSchema": {
+                "description": "Model containing orders schema",
+                "type": "object",
+                "properties": {
+                    "customer_id": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "integer"
+                    },
+                    "order_date": {
+                        "type": "date"
+                    },
+                    "shipped_date": {
+                        "type": "date"
+                    }
+                }
+            },
+            "ProductSchema": {
+                "description": "Model containing products schema",
+                "type": "object",
+                "properties": {
+                    "item_name": {
+                        "type": "string",
+                        "example": "Computer"
+                    },
+                    "item_price": {
+                        "type": "integer",
+                        "example": "40000"
+                    }
+                }
+            },
+            "GetAllProductSchema": {
+                "description": "Model containing products schema",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "item_name": {
+                        "type": "string",
+                        "example": "Computer"
+                    },
+                    "item_price": {
+                        "type": "integer",
+                        "example": "40000"
+                    }
+                }
+            },
+            "GetByIdSchema": {
+                "description": "Get an item from the database using id",
+                "type": "integer",
+                "example": 4,
+                "properties": {
+                    "name": "id",
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Get All Products"
+                ],
+                "summary": "Display all products from Database",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            },
+                            "application/yaml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Invalid Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            },
+                            "application/yaml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/add_product": {
+            "post": {
+                "tags": [
+                    "Add Product"
+                ],
+                "summary": "Add Items to Database",
+                "requestBody": {
+                    "required": true,
+                    "description": "Add Product",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item Added to Database",
+                        "content": {
+                            "application/json" : {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "tags": [
+                    "Get Product by ID"
+                ],
+                "summary": "Fetch an item from the database using an id.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Enter Product id",
+                        "required": true,
+                        "type": "integer",
+                        "schema": {
+                            "$ref": "#/components/schemas/GetByIdSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetByIdSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/update/{id}": {
+            "put": {
+                "tags": [
+                    "Change Product details"
+                ],
+                "summary": "Update the details of an existing product.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "product id",
+                        "type": "integer",
+                        "schema": {
+                            "$ref": "#/components/schemas/GetByIdSchema"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update Product",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductSchema"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllProductSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Delete Product"
+                ],
+                "summary": "Delete an item from the database.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Delete product from the database.",
+                        "type": "integer",
+                        "schema": {
+                            "$ref": "#/components/schemas/GetByIdSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Product deleted successfuly.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetByIdSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,197 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Customer Swagger API",
+    "description": "A multi-function API for customer",
+    "version": "1.0.0",
+    "license": {
+      "name": "License",
+      "url": "https://www.abc.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Development Server"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CustomerSchema": {
+        "description": "Model for Customer Schema",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Alamgir Khan"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@abc.com"
+          },
+          "city": {
+            "type": "string",
+            "example": "Amsterdam"
+          },
+          "address": {
+            "type": "string",
+            "example": "Street Abc"
+          }
+        }
+      },
+      "CustomerByIdSchema": {
+        "description": "Get customer by id.",
+        "type": "integer",
+        "example": 4,
+        "properties": {
+          "name": "id",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/customers": {
+      "get": {
+        "tags": [
+          "Get All Customers"
+        ],
+        "summary": "Show all the customers from the database.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/add_customer": {
+      "post": {
+        "tags": [
+          "Add Customer"
+        ],
+        "summary": "Add customers to the database",
+        "requestBody": {
+          "required": true,
+          "description": "Add Customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Customer successfuly added.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/update/customer/{id}": {
+      "put": {
+        "tags": [
+          "Update Customer Info"
+        ],
+        "summary": "Change existing customer details.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "customer id",
+            "type": "integer",
+            "schema": {
+              "$ref": "#/components/schemas/CustomerByIdSchema"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "Get customer",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Delete Customer"
+        ],
+        "summary": "Delete a customer from the database.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Enter id",
+            "type": "integer",
+            "schema": {
+              "$ref": "#/components/schemas/CustomerByIdSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerByIdSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "NOT FOUND"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
