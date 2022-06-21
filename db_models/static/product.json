@@ -17,24 +17,6 @@
     ],
     "components": {
         "schemas": {
-            "CustomerSchema": {
-                "description": "Model containing customer schema",
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "email"
-                    },
-                    "city": {
-                        "type": "string"
-                    },
-                    "address": {
-                        "type": "string"
-                    }
-                }
-            },
             "OrderSchema": {
                 "description": "Model containing orders schema",
                 "type": "object",

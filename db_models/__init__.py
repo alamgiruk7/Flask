@@ -7,14 +7,15 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from os import path
 
 
-DB_NAME = 'store.db'
+DB_NAME = 'sql6501195'
 db = SQLAlchemy()
 ma = Marshmallow()
 
 def create_app():
     app = Flask(__name__)
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://sql6501195:G5mH4G4Ggq@sql6.freemysqlhosting.net/{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     ma.init_app(app)
