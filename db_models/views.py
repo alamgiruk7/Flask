@@ -159,7 +159,7 @@ def customer_orders(id):
 def place_order(args):
     products = [Product.get_item(i) for i in args.get('ids')]
 
-    order = Order(customer_id=1, products= products)
+    order = Order(customer_id=2, products= products)
     order.save()
 
     order_schema = OrderSchema().dump(order)
