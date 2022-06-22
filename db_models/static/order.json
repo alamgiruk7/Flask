@@ -1,0 +1,66 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Orders Swagger UI",
+        "description": "contains all the APIs of orders",
+        "version": "1.0.0",
+        "license": {
+            "name": "MIT",
+            "url": "https://www.opensource.com/"
+        }
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Development Server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "OrderSchema": {
+                "type": "object",
+                "description": "Model containing Orders Schema",
+                "properties": {
+                    "id" : {
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "order_data": {
+                        "type": "date",
+                        "example": "2022-06-21T15:33:52"
+                    },
+                    "shipped_date": {
+                        "type": "date",
+                        "example": "2022-06-25T15:33:52"
+                    },
+                    "customer_id": {
+                        "type": "integer",
+                        "example": 2
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Get All Orders"
+                ],
+                "summary": "Display all the orders that are been placed.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderSchema"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

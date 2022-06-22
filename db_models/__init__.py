@@ -20,14 +20,21 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
 
-    # Swagger UI
+    '''Swagger UI'''
+    # Products UI
     SWAGGER_URL = "/swagger/products"
     SWAGGER_PATH = "/static/product.json"
     SWAGGER_BLUEPRINT = get_swaggerui_blueprint(SWAGGER_URL, SWAGGER_PATH)
 
+    # Customer UI
     SWAGGER_URL1 = "/swagger/customers"
     SWAGGER_PATH1 = "/static/customer.json"
-    SWAGGER_BLUEPRINT1 = get_swaggerui_blueprint(SWAGGER_URL1, SWAGGER_PATH1)
+    SWAGGER_BLUEPRINT1 = get_swaggerui_blueprint(SWAGGER_URL1, SWAGGER_PATH1, blueprint_name=SWAGGER_URL1)
+
+    # Orders UI
+    SWAGGER_URL_2 = "/swagger/orders"
+    SWAGGER_PATH_2 = "/static/order.json"
+    SWAGGER_BLUEPRINT_2 = get_swaggerui_blueprint(SWAGGER_URL_2, SWAGGER_PATH_2, blueprint_name=SWAGGER_URL_2)
 
 
     # Error Handling
@@ -47,7 +54,8 @@ def create_app():
     from .views import bp
     app.register_blueprint(bp, url_prfix = '/')
     app.register_blueprint(SWAGGER_BLUEPRINT, url_prefix= SWAGGER_URL)
-    app.register_blueprint(SWAGGER_BLUEPRINT1, name=SWAGGER_BLUEPRINT1, url_prefix= SWAGGER_URL1)
+    app.register_blueprint(SWAGGER_BLUEPRINT1, url_prefix= SWAGGER_URL1)
+    app.register_blueprint(SWAGGER_BLUEPRINT_2, url_prefix= SWAGGER_URL_2)
 
 
     # Create Database
