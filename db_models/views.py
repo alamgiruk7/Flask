@@ -96,6 +96,7 @@ def add_product(args):
 @bp.route('/', methods=['GET'])
 def View_All_Items():
     items = Product.allItems()
+    breakpoint()
     schema = ProductSchema(many=True)
 
 
@@ -118,7 +119,7 @@ def get_item(id):
 def update_product(id):
     try:
         item_to_update = request.get_json()
-        Product.update_item(id, **item_to_update)
+        Product.update_item(id, item_to_update)
 
         schema = ProductSchema()
         schema_update = schema.dump(item_to_update)
@@ -159,7 +160,7 @@ def customer_orders(id):
 def place_order(args):
     products = [Product.get_item(i) for i in args.get('ids')]
 
-    order = Order(customer_id=2, products= products)
+    order = Order(customer_id=1, products= products)
     order.save()
 
     order_schema = OrderSchema().dump(order)

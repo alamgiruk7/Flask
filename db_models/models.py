@@ -104,7 +104,7 @@ class Product(db.Model):
         db.session.commit()
 
     @classmethod
-    def update_item(cls, id, **kwargs):
+    def update_item(cls, id, kwargs):
         try:
             item = cls.get_item(id)
             item.item_name = kwargs.get('item_name')
@@ -159,7 +159,6 @@ class OrderUpdateSchema(OrderSchema):
 
     @pre_load
     def check_products(self, data, **kwargs):
-        # breakpoint()
         if not data.get("products"):
             raise ValidationError("Empty list provided")
 
