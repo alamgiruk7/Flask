@@ -7,7 +7,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from os import path
 
 
-DB_NAME = 'sql6501195'
+DB_NAME = 'store.db'
 db = SQLAlchemy()
 ma = Marshmallow()
 

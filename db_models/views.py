@@ -96,7 +96,6 @@ def add_product(args):
 @bp.route('/', methods=['GET'])
 def View_All_Items():
     items = Product.allItems()
-    breakpoint()
     schema = ProductSchema(many=True)
 
 
@@ -146,6 +145,7 @@ def delete_product(id):
 @bp.route('/customer/orders/<int:id>', methods=['GET'])
 def customer_orders(id):
     item = Customer.customer_by_id(id)
+
     schema = CustomerSchema().dump(item)
     return jsonify(schema), OK
 
